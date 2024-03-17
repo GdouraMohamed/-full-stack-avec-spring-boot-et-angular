@@ -1,5 +1,6 @@
 package com.example.produits.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -18,6 +19,8 @@ public class Category {
         private String nomCat;
         private String descriptionCat;
 
+        @JsonIgnore /*Je demande à Spring de ne pas nous retourner la liste des
+produits qui est incluse dans la catégorie.*/
         @OneToMany(mappedBy = "category") //, cascade = CascadeType.ALL
         private List<Produit> produits;
 }

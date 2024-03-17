@@ -121,6 +121,35 @@ class ProduitsApplicationTests {
 		}
 	}
 
+	@Test
+	public void testFindByCategory() {
+
+		List<Produit> produits = produitRepository.findByCategoryIdCat(2L);
+		for (Produit p : produits) {
+			System.out.println(p.getCategory().toString());
+		}
+	}
+
+	@Test
+	public void testfindByOrderByNomProduitAsc()
+	{
+		List<Produit> prods =
+				produitRepository.findByOrderByNomProduitAsc();
+		for (Produit p : prods)
+		{
+			System.out.println(p.getNomProduit());
+		}
+	}
+
+	@Test
+	public void testTrierProduitsNomsPrix()
+	{
+		List<Produit> prods = produitRepository.trierProduitsNomsPrix();
+		for (Produit p : prods)
+		{
+			System.out.println(p.getNomProduit()+" - "+p.getPrixProduit());
+		}
+	}
 
 
 }
