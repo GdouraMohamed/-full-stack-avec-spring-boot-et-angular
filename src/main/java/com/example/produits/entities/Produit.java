@@ -30,6 +30,14 @@ public class Produit {
         this.dateCreation = dateCreation;
     }
 
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
     @Override
     public String toString() {
         return super.toString();
