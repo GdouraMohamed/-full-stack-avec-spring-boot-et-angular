@@ -23,7 +23,7 @@ public interface ProduitService {
 
 
     ProduitDTO convertEntityToDto(Produit produit);
-    Produit convertEntityToDto(ProduitDTO produitDTO);
+//    Produit convertEntityToDto(ProduitDTO produitDTO);
     Produit convertDtoToEntity(ProduitDTO produitDto);
 
     }

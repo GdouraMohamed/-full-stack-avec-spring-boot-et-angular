@@ -4,6 +4,9 @@ import com.example.produits.dto.ProduitDTO;
 import com.example.produits.entities.Category;
 import com.example.produits.entities.Produit;
 import com.example.produits.repos.ProduitRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProduitServiceImpl implements ProduitService {
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Autowired
     private ProduitRepository produitRepository;
@@ -87,45 +93,52 @@ return listprodDto;*/
         return produitRepository.trierProduitsNomsPrix();
     }
 
+//    @Override
+//    public ProduitDTO convertEntityToDto(Produit produit) {
+//        //classic
+//       /* ProduitDTO produitDTO = new ProduitDTO();
+//        produitDTO.setIdProduit(produit.getIdProduit());
+//        produitDTO.setNomProduit(produit.getNomProduit());
+//        produitDTO.setPrixProduit(produit.getPrixProduit());
+//        produitDTO.setCategory(produit.getCategory());
+//        return produitDTO;*/
+//
+//        return ProduitDTO.builder()
+//                .idProduit(produit.getIdProduit())
+//                .nomProduit(produit.getNomProduit())
+//               // .prixProduit(produit.getPrixProduit())
+//                .dateCreation(produit.getDateCreation())
+//                .nomCat(produit.getCategory().getNomCat())
+//               //.category(produit.getCategory())
+//                .build();
+//    }
+
     @Override
     public ProduitDTO convertEntityToDto(Produit produit) {
-        //classic
-       /* ProduitDTO produitDTO = new ProduitDTO();
-        produitDTO.setIdProduit(produit.getIdProduit());
-        produitDTO.setNomProduit(produit.getNomProduit());
-        produitDTO.setPrixProduit(produit.getPrixProduit());
-        produitDTO.setCategory(produit.getCategory());
-        return produitDTO;*/
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        ProduitDTO produitDTO = modelMapper.map(produit, ProduitDTO.class);
+        return  produitDTO;
 
-        return ProduitDTO.builder()
-                .idProduit(produit.getIdProduit())
-                .nomProduit(produit.getNomProduit())
-               // .prixProduit(produit.getPrixProduit())
-                .dateCreation(produit.getDateCreation())
-                .nomCat(produit.getCategory().getNomCat())
-               //.category(produit.getCategory())
-                .build();
-    }
-
-    @Override
-    public Produit convertEntityToDto(ProduitDTO produitDTO) {
-        Produit produit = new Produit();
+    /*    Produit produit = new Produit();
         produit.setIdProduit(produitDTO.getIdProduit());
         produit.setNomProduit(produitDTO.getNomProduit());
         produit.setPrixProduit(produitDTO.getPrixProduit());
         produit.setDateCreation(produitDTO.getDateCreation());
         produit.setCategory(produitDTO.getCategory());
-        return produit;
+        return produit;*/
     }
 
     @Override
     public Produit convertDtoToEntity(ProduitDTO produitDto) {
         Produit produit = new Produit();
-        produit.setIdProduit(produitDto.getIdProduit());
-        produit.setNomProduit(produitDto.getNomProduit());
-        produit.setPrixProduit(produitDto.getPrixProduit());
-        produit.setDateCreation(produitDto.getDateCreation());
-        produit.setCategory(produitDto.getCategory());
+        produit = modelMapper.map(produitDto,Produit.class);
         return produit;
+//        Produit produit = new Produit();
+//        produit.setIdProduit(produitDto.getIdProduit());
+//        produit.setNomProduit(produitDto.getNomProduit());
+//        produit.setPrixProduit(produitDto.getPrixProduit());
+//        produit.setDateCreation(produitDto.getDateCreation());
+//        produit.setCategory(produitDto.getCategory());
+//        return produit;
     }
 }

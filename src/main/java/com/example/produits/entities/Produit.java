@@ -21,7 +21,6 @@ public class Produit {
     private Date dateCreation;
 
     @ManyToOne
-//    @JoinColumn(name = "id_cat")
     private Category category;
 
     public Produit(String nomProduit, Double prixProduit, Date dateCreation) {
