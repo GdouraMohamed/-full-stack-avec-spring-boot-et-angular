@@ -113,7 +113,7 @@ return listprodDto;*/
 //                .build();
 //    }
 
-    @Override
+    @Override // a cremplacer par interface
     public ProduitDTO convertEntityToDto(Produit produit) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         ProduitDTO produitDTO = modelMapper.map(produit, ProduitDTO.class);
